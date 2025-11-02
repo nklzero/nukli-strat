@@ -1,0 +1,218 @@
+(****************************************************
+ * Strat Language Grammar — Draft 3
+ * AI-Generated, Human-Directed Specification
+ *
+ * This grammar was developed collaboratively using AI assistance
+ * under human guidance, review, and design intent. All syntax,
+ * semantics, and layout decisions were human-approved and verified
+ * for C ABI compatibility.
+ *
+ * Next Iteration (Draft 4) Notes:
+ *
+ * 1. GENERICS
+ *    - Introduce parameterized templates: @template Vector[T] { ... }
+ *    - Define type parameter bounds and propagation through @extends.
+ *
+ * 2. EXTENSION SYSTEM
+ *    - Add @extension and @grammar blocks.
+ *      • @extension: declares optional language or platform features (e.g., OpenGL-style caps).
+ *      • @grammar: external syntax or rule set extensions, restricted to extension definition files.
+ *
+ * 3. CONSTANTS
+ *    - Introduce @constant for compile-time expressions and symbols:
+ *         @constant MAX_SIZE = 1024
+ *      • Usable in array sizes, enums, and other constant contexts.
+ *
+ * 4. QUALIFIED SYMBOL SCOPES
+ *    - Extend qualified_identifier use in @function and @constant for modular namespaces:
+ *         @function math::add(a:i32, b:i32) -> i32
+ *
+ * Purpose:
+ * These features aim to expand Strat’s expressiveness, support modular extension,
+ * and prepare the grammar for cross-domain compilation contexts.
+ ****************************************************)
+
+(************ Lexical Foundations ************)
+
+(* Identifiers and literals are ASCII-based, following C-style rules. *)
+letter        = 'A'…'Z' | 'a'…'z' | '_' ;
+digit         = '0'…'9' ;
+hex_digit     = digit | 'A'…'F' | 'a'…'f' ;
+
+identifier    = letter , { letter | digit | '_' } ;
+qualified_identifier = identifier , { '::' , identifier } ;
+(* Used for scoped names, such as templates or imported modules. *)
+
+sign          = '+' | '-' ;
+
+(* Integer and float literals support underscores for readability. *)
+int_literal   = [ sign ] , digit , { '_' | digit } ;
+float_literal = [ sign ] , digit , { '_' | digit } ,
+                 [ '.' , digit , { '_' | digit } , [ exponent ] ] ;
+exponent      = ( 'e' | 'E' ) , [ sign ] , digit , { digit } ;
+
+boolean       = 'true' | 'false' ;
+
+(* Strings use C-compatible escapes and UTF-8 encoding. *)
+DQ            = '"' ;        (* double quote *)
+BS            = '\\' ;       (* backslash *)
+
+string        = DQ , { string_char } , DQ ;
+string_char   = escape | non_quote ;
+non_quote     = ? any character except DQ and BS ? ;
+escape        = BS , ( DQ | BS | 'n' | 'r' | 't' | 'b' | 'f'
+                     | 'u' , hex_digit , hex_digit , hex_digit , hex_digit ) ;
+
+literal       = int_literal | float_literal | string | boolean ;
+
+comment       = '#' , ? any characters until end of line ? ;
+(* Whitespace and comments are ignored outside of string literals. *)
+
+
+(************ Primitive Types ************)
+
+(* Primitive types map 1:1 to C built-in types or standard equivalents. *)
+primitive_type =
+      'i8'  | 'u8'  | 'i16' | 'u16'
+    | 'i32' | 'u32' | 'i64' | 'u64'
+    | 'f32' | 'f64'
+    | 'bool'
+    | 'c_char'        (* Equivalent to C's char (signed/unsigned platform-dependent) *)
+    | 'size'          (* size_t *)
+    | 'ptrdiff'       (* ptrdiff_t *)
+    | 'str'           (* C string pointer (char const *) *)
+;
+
+
+(************ Composite and Reference Types ************)
+
+(* Type references can be primitive, composite, or generic-like (array/pointer/etc). *)
+type_ref =
+      primitive_type
+    | qualified_identifier
+    | array_type
+    | pointer_type
+    | reference_type
+    | slice_type
+;
+
+array_type =
+    'array' , '[' , type_ref , [ ',' , array_size ] , ']' ;
+(* A fixed-size array if a size is provided; otherwise undefined-length (not allowed in @structure). *)
+
+array_size =
+      int_literal
+    | qualified_identifier ;
+(* The size must be a compile-time constant expression or constant symbol. *)
+
+pointer_type    = 'pointer' , '[' , type_ref , ']' ;
+(* Raw pointer type; behaves like T* in C. *)
+
+reference_type  = 'reference' , '[' , type_ref , ']' ;
+(* Non-owning reference; implemented as const T& in C++ semantics. *)
+
+slice_type      = 'slice' , '[' , type_ref , ']' ;
+(* View type consisting of pointer + length pair, { T*, size_t }. *)
+
+
+
+(************ Generic Key–Value Blocks ************)
+
+(* Used for metadata and attributes; allows nested maps. *)
+kv_block(kind)  = '@' , kind , '{' , [ kv_body ] , '}' ;
+kv_body         = kv_entry , { ',' , kv_entry } , [ ',' ] ;
+kv_entry        = identifier , '=' , kv_value ;
+kv_value        = literal | '{' , [ kv_body ] , '}' ;
+
+metadata_block   = kv_block('metadata') ;
+(* File- or symbol-level metadata annotations; ignored at runtime. *)
+
+attributes_block = kv_block('attributes') ;
+(* Structural or layout modifiers, e.g. packed=true, align=8. *)
+
+
+(************ Templates ************)
+
+(* A template defines a non-materialized structure used as a base via @extends. *)
+template_block =
+    '@template' , identifier , '{' , [ composite_body ] , '}' ;
+
+
+(************ Structures, Unions, and Common Body ************)
+
+(* Common body definition shared by structures and unions. *)
+composite_body =
+    composite_entry , { ',' , composite_entry } , [ ',' ] ;
+
+composite_entry =
+      attributes_block
+    | extends_entry
+    | field_entry
+;
+
+extends_entry =
+    '@extends' , qualified_identifier ;
+(* Inherits all fields and layout from the referenced @template. Must appear
+   after @attributes and before field definitions to preserve memory layout. *)
+
+field_entry =
+    identifier , ':' , type_ref ;
+(* Declares a typed field. The order defines memory layout. *)
+
+structure_block =
+    '@structure' , [ identifier ] , '{' , [ composite_body ] , '}' ;
+(* Represents a C-compatible struct. Can include @extends and @attributes. *)
+
+union_block =
+    '@union' , [ identifier ] , '{' , [ composite_body ] , '}' ;
+(* Represents a C-compatible union. Attributes control alignment and packing. *)
+
+
+(************ Enumerations ************)
+
+enumeration_block =
+    '@enumeration' , [ identifier ] , '{' , [ enum_body ] , '}' ;
+
+enum_body =
+    enum_entry , { ',' , enum_entry } , [ ',' ] ;
+
+enum_entry =
+      attributes_block
+    | enum_variant ;
+
+enum_variant =
+    identifier , [ '=' , int_literal ] ;
+(* Each variant is an integer constant, defaulting to sequential values.
+   Attributes may be used for bitflags or custom bindings. *)
+
+
+(************ Functions ************)
+
+function_block =
+    '@function' , identifier , '(' , [ parameter_list ] , ')' ,
+    [ '->' , type_ref ] ;
+(* Declares a C-callable function signature. The body is not included in grammar. *)
+
+parameter_list =
+    parameter_entry , { ',' , parameter_entry } , [ ',' ] ;
+
+parameter_entry =
+    identifier , ':' , type_ref ;
+(* Parameters follow C ABI conventions. Names are optional but recommended. *)
+
+
+(************ Top-Level File ************)
+
+file =
+    { comment | metadata_block | declaration } ;
+(* A Strat source file may include comments and metadata interspersed
+   with declarations. Order is non-semantic. *)
+
+declaration =
+      template_block
+    | structure_block
+    | union_block
+    | enumeration_block
+    | function_block
+;
+(* Top-level declarations represent the complete unit of compilation. *)
