@@ -1,4 +1,11 @@
-(****************************************************
+(***************************************************************
+ * Nukli Strat Grammar — core_grammar.ebnf
+ * © 2025 Lloyd (nklzero) <lloyd@nukli.zone> — Andorra
+ *
+ * Licensed under the Business Source License 1.1
+ * See LICENSE-code.txt for details.
+ * Change Date: 2028-11-03 → Apache License 2.0
+ *
  * Strat Language Grammar — Draft 3
  * AI-Generated, Human-Directed Specification
  *
@@ -7,30 +14,34 @@
  * semantics, and layout decisions were human-approved and verified
  * for C ABI compatibility.
  *
- * Next Iteration (Draft 4) Notes:
- *
+ * Next Iteration (Draft 4) Notes
+ * ------------------------------
  * 1. GENERICS
  *    - Introduce parameterized templates: @template Vector[T] { ... }
  *    - Define type parameter bounds and propagation through @extends.
  *
  * 2. EXTENSION SYSTEM
  *    - Add @extension and @grammar blocks.
- *      • @extension: declares optional language or platform features (e.g., OpenGL-style caps).
- *      • @grammar: external syntax or rule set extensions, restricted to extension definition files.
+ *      • @extension: declares optional language or platform features
+ *        (e.g., OpenGL-style capability sets).
+ *      • @grammar: external syntax or rule-set extensions, restricted
+ *        to extension definition files.
  *
  * 3. CONSTANTS
  *    - Introduce @constant for compile-time expressions and symbols:
- *         @constant MAX_SIZE = 1024
+ *        @constant MAX_SIZE = 1024
  *      • Usable in array sizes, enums, and other constant contexts.
  *
  * 4. QUALIFIED SYMBOL SCOPES
- *    - Extend qualified_identifier use in @function and @constant for modular namespaces:
- *         @function math::add(a:i32, b:i32) -> i32
+ *    - Extend qualified_identifier use in @function and @constant for
+ *      modular namespaces:
+ *        @function math::add(a: i32, b: i32) -> i32
  *
- * Purpose:
- * These features aim to expand Strat’s expressiveness, support modular extension,
- * and prepare the grammar for cross-domain compilation contexts.
- ****************************************************)
+ * Purpose
+ * -------
+ * These features aim to expand Strat’s expressiveness, support modular
+ * extension, and prepare the grammar for cross-domain compilation contexts.
+ ***************************************************************)
 
 (************ Lexical Foundations ************)
 

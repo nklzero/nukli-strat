@@ -1,0 +1,23 @@
+Nukli Strat — Research Project Licensing Summary
+===============================================
+
+© 2025 Lloyd (nklzero) <lloyd@nukli.zone> — Andorra
+
+This repository contains both creative and technical materials.
+Different components are released under different licenses:
+
+• Documentation, specifications, diagrams, and other creative works:
+  Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+  See LICENSE-docs.txt or <https://creativecommons.org/licenses/by-nc-sa/4.0/>.
+
+• Source code, grammars, and supporting software:
+  Licensed under the Business Source License 1.1.
+  Change Date: 2028-11-03  
+  Change License: Apache License 2.0  
+  See LICENSE-code.txt or <https://mariadb.com/bsl11/>.
+
+• Any materials not included in this repository remain proprietary and
+  are not covered by these licenses unless explicitly stated.
+
+You may use, copy, and modify the licensed materials for non-commercial purposes
+under the terms above. Commercial licensing options are available upon request.
