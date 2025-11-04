@@ -28,6 +28,12 @@ Strat is a deterministic, declarative system for describing typed schemas and fu
 * **Verification integration** providing a structural foundation for formal proof.
 
 *In short: define once, and it stays true everywhere.*
+
+## Status & Roadmap
+
+- Stage: active research / early.
+- Near-term plan: core prototypes (parser, canonical grammar checks, serializer, tooling, etc.) will be implemented in **Zig** first, with emitters/interop for C and Rust (`repr(C)` / `extern struct`).
+
 ## License
 
 **Documentation, specifications, and diagrams:** [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
