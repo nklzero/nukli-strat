@@ -3,6 +3,9 @@
 
 [![Status](https://img.shields.io/badge/status-active%20research%20and%20development-blue)](#project-status--roadmap) [![Spec](https://img.shields.io/badge/spec-0.1.0--draft-informational)](#versioning) [![Docs: CC BY-NC-SA 4.0](https://img.shields.io/badge/docs-CC%20BY--NC--SA%204.0-blue)](https://creativecommons.org/licenses/by-nc-sa/4.0/) [![Code: BSL 1.1 → Apache-2.0 (2028-11-03)](https://img.shields.io/badge/code-BSL%201.1%20%E2%86%92%20Apache--2.0%20(2028--11--03)-orange)](./LICENSE.BSL)
 
+![Static Badge](https://img.shields.io/badge/status-active_research_and_development-blue)
+
+
 > **Note:** Strat is an active research project. This document describes its current intent and design direction. As the project evolves, details may change — but the goal remains constant: to make structure itself an immutable truth.
 
 ## Overview
@@ -29,6 +32,10 @@ Strat is a deterministic, declarative system for describing typed schemas and fu
 
 *In short: define once, and it stays true everywhere.*
 
+## Language grammar and syntax examples
+
+You can find the full grammar in [the Strat Core Grammar](01_language_spec/strat_core_grammar.md) file and syntax examples in the 01_language_spec [README](01_language_spec/README.md).
+
 ## Status & Roadmap
 
 - Stage: active research / early.
@@ -38,7 +45,7 @@ Strat is a deterministic, declarative system for describing typed schemas and fu
 
 **Documentation, specifications, and diagrams:** [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-**Code and grammars:** Business Source License 1.1 (BSL 1.1) — changes to Apache-2.0 on **2028-11-03**. See [LICENSE.BSL](./LICENSE.BSL) for terms and change parameters, and [LICENSE-APACHE](./LICENSE-APACHE) for the future license text.
+**Code and grammars:** Business Source License 1.1 (BSL 1.1) — changes to Apache-2.0 on **2028-11-03**. See [LICENSE-code.txt](LICENSE-code.txt) for terms and change parameters.
 
 **Scope:** Only materials explicitly published in this repository are covered by these licenses. Unpublished or private works remain proprietary unless otherwise indicated.
 

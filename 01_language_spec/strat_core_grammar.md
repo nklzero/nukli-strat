@@ -1,3 +1,6 @@
+# Strat Core Grammar  
+
+```ebnf
 (***************************************************************
  * Nukli Strat Grammar — core_grammar.ebnf
  * © 2025 Lloyd (nklzero) <lloyd@nukli.zone> — Andorra
@@ -6,15 +9,17 @@
  * See LICENSE-code.txt for details.
  * Change Date: 2028-11-03 → Apache License 2.0
  *
- * Strat Language Grammar — Draft 3
+ * Strat Language Grammar — 0.1.0
  * AI-Generated, Human-Directed Specification
  *
  * This grammar was developed collaboratively using AI assistance
  * under human guidance, review, and design intent. All syntax,
  * semantics, and layout decisions were human-approved and verified
  * for C ABI compatibility.
+ * Parts of the grammar have and are being written manually and only 
+ * using AI to validate concistency.
  *
- * Next Iteration (Draft 4) Notes
+ * Next Iteration (0.1.1) Notes
  * ------------------------------
  * 1. GENERICS
  *    - Introduce parameterized templates: @template Vector[T] { ... }
@@ -22,21 +27,29 @@
  *
  * 2. EXTENSION SYSTEM
  *    - Add @extension and @grammar blocks.
- *      • @extension: declares optional language or platform features
+ *      - @extension: declares optional language or platform features
  *        (e.g., OpenGL-style capability sets).
- *      • @grammar: external syntax or rule-set extensions, restricted
+ *      - @grammar: external syntax or rule-set extensions, restricted
  *        to extension definition files.
  *
  * 3. CONSTANTS
  *    - Introduce @constant for compile-time expressions and symbols:
  *        @constant MAX_SIZE = 1024
- *      • Usable in array sizes, enums, and other constant contexts.
+ *      - Usable in array sizes, enums, and other constant contexts.
  *
  * 4. QUALIFIED SYMBOL SCOPES
  *    - Extend qualified_identifier use in @function and @constant for
  *      modular namespaces:
  *        @function math::add(a: i32, b: i32) -> i32
  *
+ * 5. STRUCTURE OF ARRAYS (SOA) MEMORY LAYOUT MODIFIER (Draft 4 or later)
+ *    - Explicit declaration of a SoA memory layout with clear 
+ *      semantics. This will only be valid for structure constructions
+ *      and mixing @extends and @soa within the same struct might 
+ *      be accepted.
+ *      Grammar and semantics open at the moment and pending to 
+ *      review best specification.
+*
  * Purpose
  * -------
  * These features aim to expand Strat’s expressiveness, support modular
@@ -227,3 +240,14 @@ declaration =
     | function_block
 ;
 (* Top-level declarations represent the complete unit of compilation. *)
+```
+
+---
+
+© 2025 Lloyd (nklzero) — Andorra  
+This documentation, including embedded grammar and code examples,  
+is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+Example grammar excerpts are illustrative and provided for educational,
+non-commercial use. Full grammar source files are licensed separately
+under the [Business Source License 1.1](LICENSE-code.txt).
