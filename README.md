@@ -1,10 +1,10 @@
 # Strat: Deterministic Structural Definition System
 **Structure that means the same thing everywhere**
 
+![[strat_logo.png]]
+
+
 [![Status](https://img.shields.io/badge/status-active%20research%20and%20development-blue)](#project-status--roadmap) [![Spec](https://img.shields.io/badge/spec-0.1.0--draft-informational)](#versioning) [![Docs: CC BY-NC-SA 4.0](https://img.shields.io/badge/docs-CC%20BY--NC--SA%204.0-blue)](https://creativecommons.org/licenses/by-nc-sa/4.0/) [![Code: BSL 1.1 → Apache-2.0 (2028-11-03)](https://img.shields.io/badge/code-BSL%201.1%20%E2%86%92%20Apache--2.0%20(2028--11--03)-orange)](./LICENSE.BSL)
-
-![Static Badge](https://img.shields.io/badge/status-active_research_and_development-blue)
-
 
 > **Note:** Strat is an active research project. This document describes its current intent and design direction. As the project evolves, details may change — but the goal remains constant: to make structure itself an immutable truth.
 
