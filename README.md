@@ -1,7 +1,7 @@
 # Strat
 
 **Structure that means the same thing everywhere**
-![Image](strat_logo.png)
+![Image](assets/strat_logo.png)
 
 [![Status](https://img.shields.io/badge/status-active%20research%20and%20development-blue)](#project-status--roadmap)
 [![Core ABI](https://img.shields.io/badge/Core_ABI-in_progress-blue?style=flat)](#roadmap) [![Portability](https://img.shields.io/badge/Portability-planned-lightgray)](#roadmap) [![Binary Format](https://img.shields.io/badge/Binary_Format-planned-lightgrey?style=flat)](#roadmap) [![Language Layer](https://img.shields.io/badge/Language_Layer-planned-lightgrey?style=flat)](#roadmap) [![Prototype SDK](https://img.shields.io/badge/Prototype_SDK-planned-lightgrey?style=flat)](#roadmap)
