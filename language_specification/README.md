@@ -1,6 +1,6 @@
 # Strat — Language Specification
 
-Documentation and reference material for the Strat language live in this folder. It contains the primary grammar [strat_core_grammar.md](01_language_spec/strat_core_grammar.md) (former `core_grammar.ebnf` which will be reintroduced upon grammar stability and feature lock) and will contain supporting language-design material: examples, notes, and any validator/formatting guidance.
+Documentation and reference material for the Strat language live in this folder. It contains the primary grammar [strat_core_grammar.md](strat_core_grammar.md) (former `core_grammar.ebnf` which will be reintroduced upon grammar stability and feature lock) and will contain supporting language-design material: examples, notes, and any validator/formatting guidance.
 
 > **Provenance:** examples were initially produced with AI assistance and **human-reviewed** to match the current grammar.
 
